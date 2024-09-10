@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane layoutX="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+   <children>
+      <ImageView fitHeight="607.0" fitWidth="777.0" layoutX="-10.0" layoutY="-1.0">
+         <image>
+            <Image url="@images/LoginImg.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="208.0" layoutY="63.0" prefHeight="338.0" prefWidth="339.0" style="-fx-background-color: rgb(0,0,0,0.5); -fx-background-radius: 30;">
+         <children>
+            <Button fx:id="loginBtn" layoutX="80.0" layoutY="240.0" mnemonicParsing="false" onAction="#LoginBtnClick" prefHeight="49.0" prefWidth="178.0" style="-fx-background-radius: 30;" text="LOGIN">
+               <font>
+                  <Font name="Modern No. 20" size="18.0" />
+               </font>
+            </Button>
+            <Label layoutX="51.0" layoutY="39.0" text="WELCOME TO YAMB" textFill="WHITE">
+               <font>
+                  <Font name="Modern No. 20" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="45.0" layoutY="116.0" text="Label" />
+            <Label layoutX="115.0" layoutY="124.0" text="USERNAME :" textFill="WHITE">
+               <font>
+                  <Font name="Modern No. 20" size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textField" alignment="TOP_CENTER" layoutX="94.0" layoutY="157.0" promptText="Someone" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
