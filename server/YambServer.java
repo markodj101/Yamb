@@ -19,7 +19,7 @@ public class YambServer {
         this.players = Collections.synchronizedSet(new HashSet<>());
         this.lobbies = Collections.synchronizedSet(new HashSet<>());
         
-    }
+    }g
     
     
     public static void main(String[] args) {
