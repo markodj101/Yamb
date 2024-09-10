@@ -14,7 +14,7 @@ public class LoginController {
 
     @FXML
     void LoginBtnClick(ActionEvent event) {
-
+        System.out.println("Login button clicked!");
     }
 
 }
