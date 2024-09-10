@@ -10,7 +10,7 @@
    - Upravlja povezivanjem klijenata
    - Koordinira komunikaciju između igrača
 
-3. `client.YambClientThread` - Klijent klasa
+3. `client.YambPlayerThread` - Klijent klasa
 
    - Upravlja vezom sa serverom
    - Šalje i prima poruke
