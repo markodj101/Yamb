@@ -28,4 +28,7 @@ public class LobbyController {
 
     }
 
+    public String getLobbyName() {
+        return "";
+    }
 }
