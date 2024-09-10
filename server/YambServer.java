@@ -36,7 +36,7 @@ public class YambServer {
                 new YambPlayerThread(playerSocket,this).start();
             }
         }catch (IOException e){
-            System.err.println(e.getMessage()); //msg
+            System.err.println(e.getMessage()); //msgg
         }
     }
 
