@@ -61,5 +61,5 @@
 
     - Enkapsulira slanje i primanje poruka preko socketa
 
-15. `util.GameLogic` - Klasa koja sadrži pravila igre i logiku bodovanja
+15. `util.Methods` - Klasa koja sadrži pravila igre i logiku bodovanja
     - Implementira pravila Yamb-a

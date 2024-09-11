@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class YambServer {
     public static final int PORT = 8080;
     private final Set<YambPlayerThread> players; //ovo je za sad kao ClientThread
-    private final Set<LobbyController> lobbies; //ovo je za sad kao Lobby
+    private final Set<Lobby> lobbies; //ovo je za sad kao Lobby
 
     public YambServer() {
         this.players = Collections.synchronizedSet(new HashSet<>());
@@ -25,7 +25,7 @@ public class YambServer {
 
     public static void main(String[] args) {
         YambServer server = new YambServer();
-        server.execute();
+        server.execute(); // ovde sam slucajno napravio neku promjenu --- Srdjan
     }
 
     private void execute() {
@@ -50,7 +50,7 @@ public class YambServer {
     }
 
     public boolean lobbyNameAvailable(String lobbyName) {
-        for (LobbyController lobby : lobbies) {
+        for (Lobby lobby : lobbies) {
             if(lobby.getLobbyName().equals(lobbyName)){
                 return false;
             }
@@ -67,18 +67,18 @@ public class YambServer {
         players.remove(player);
     }
 
-    public void removeLobby(LobbyController lobby) {
+    public void removeLobby(Lobby lobby) {
         lobbies.remove(lobby);
     }
 
-    public void addNewLobby(LobbyController lobby) {
+    public void addNewLobby(Lobby lobby) {
         lobbies.add(lobby);
     }
 
     public YambPlayerThread getPlayerbyUsername(String username) {
         return players.stream().filter(player -> player.getUsername().equals(username)).findFirst().orElse(null); //promjeniti da bude efikasnije
     }
-    public LobbyController getPlayerbyLobbyName(String lobbyName) {
+    public Lobby getPlayerbyLobbyName(String lobbyName) {
         return lobbies.stream().filter(lobby -> lobby.getLobbyName().equals(lobbyName)).findFirst().orElse(null); //promjeniti da bude efikasnije
     }
 
@@ -88,7 +88,7 @@ public class YambServer {
         }
     }
 
-    public String PlayersInLobby(YambPlayerThread player, LobbyController lobby){
+    public String PlayersInLobby(YambPlayerThread player, Lobby lobby){
         synchronized (player){
             return lobby.getPlayers().stream().filter(p -> p != player).map(YambPlayerThread::toString).collect(Collectors.joining(" "));
         }
@@ -96,7 +96,7 @@ public class YambServer {
 
     public String getLobbies(){
         synchronized (lobbies){
-            return lobbies.stream().map(LobbyController::toString).collect(Collectors.joining(" "));
+            return lobbies.stream().map(Lobby::toString).collect(Collectors.joining(" "));
         }
     }
 
@@ -107,11 +107,17 @@ public class YambServer {
     }
 
 
-    public void SendToGame(LobbyController lobby, String msg){
+    public void SendToGame(YambPlayerThread player,Lobby lobby, String msg){
         synchronized (lobby.getPlayers()){
             lobby.getPlayers().forEach(p -> p.sendResponse(msg)); //fali funkcija
         }
     }
+    // ovu fju si zaboravio prenijeti sa akijevog servera, ja cu je nazvati SendInGame na mom dijelu --Srdjan
+    /*public void broadcastInGame(Lobby lobby, String message) {
+        synchronized (lobby.getPlayers()) {
+            lobby.getPlayers().forEach(player -> player.sendResponse(message));
+        }
+    }*/
 
     public void SendToSpectators(LobbyController lobby, String msg){
         //ova funkcija mozda ne treba za sad!

@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 
 public class YambApp extends Application {
 
+    //CLIENT VIEW
+
     private Stage primaryStage;
 
     private YambPlayer player;

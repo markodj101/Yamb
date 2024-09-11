@@ -10,7 +10,7 @@
    - Upravlja povezivanjem klijenata
    - Koordinira komunikaciju između igrača
 
-3. `client.YambClientThread` - Klijent klasa
+3. `client.YambPlayerThread` - Klijent klasa
 
    - Upravlja vezom sa serverom
    - Šalje i prima poruke
@@ -61,5 +61,5 @@
 
     - Enkapsulira slanje i primanje poruka preko socketa
 
-15. `util.GameLogic` - Klasa koja sadrži pravila igre i logiku bodovanja
+15. `util.Methods` - Klasa koja sadrži pravila igre i logiku bodovanja
     - Implementira pravila Yamb-a

@@ -52,12 +52,61 @@ public class YambPlayer extends Thread{
                     break;
                 }
 
-               // handleResponse(response);
+                //handleResponse(response);
             }
         } catch (IOException e) {
             close();
         }
     }
+
+    /*private void handleResponse(String response) {
+        String[] parts = response.split(" ", 3);
+
+        switch (parts[0]) {
+            case "CONNECT":
+                yambApp.handleConnect(parts[1], parts[2]);
+                break;
+            case "ERROR":
+                ViewUtil.showErrorAlert(parts[2]);
+                break;
+            case "ADD":
+                yambApp.handleAddItems(parts[1], parts[2]);
+                break;
+            case "REMOVE":
+                yambApp.handleRemoveItem(parts[1], parts[2]);
+                break;
+            case "CREATE_LOBBY":
+                yambApp.handleCreateLobby(parts[1], parts[2]);
+                break;
+            case "JOIN":
+                yambApp.setLobbyScene(parts[1]);
+                break;
+            case "INVITE":
+                yambApp.showInviteAlert(parts[1], parts[2]);
+                break;
+            case "LEAVE":
+                yambApp.setStartScene();
+                break;
+            case "START":
+                yambApp.setGameScene();
+                break;
+            case "CURRENT":
+                yambApp.setCurrentCard(parts[1]);
+                break;
+            case "GAME_INFO":
+                yambApp.showGameInfo(parts[1], parts[2]);
+                break;
+            case "FINISH":
+                yambApp.showFinishAlert(parts[2]);
+                break;
+            case "DISCONNECT":
+                close();
+                break;
+            default:
+                ViewUtil.setTextLabel(yambApp.getLblMessage(), response);
+                break;
+        }
+    }*/
 
     private void close() {
         try {
