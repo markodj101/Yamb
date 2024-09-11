@@ -68,7 +68,7 @@ public class YambPlayerThread extends Thread{
                 handleRequest(userInput);
             }
         } catch (IOException e) {
-            handleDisconnect();
+            //handleDisconnect();
         }
     }
     private void handleRequest(String command) {
@@ -106,10 +106,10 @@ public class YambPlayerThread extends Thread{
                 handleStartGame();
                 break;
             case "PLAY":
-                lobby.getUno().playMove(parts[1]);
+                //lobby.getUno().playMove(parts[1]);
                 break;
             case "DISCONNECT":
-                handleDisconnect();
+                //handleDisconnect();
                 break;
         }
     }
@@ -224,8 +224,8 @@ public class YambPlayerThread extends Thread{
         else if (!lobby.arePlayersReady())
             sendResponse("ERROR LOBBY ");
         else {
-            server.SendInGame(lobby, "START");
-            lobby.start();
+            //server.SendInGame(lobby, "START");
+            //obby.start();
             lobby.setPlayersInGame(true);
         }
     }
@@ -238,7 +238,7 @@ public class YambPlayerThread extends Thread{
             System.err.println("Error with closing resources!");
         }
     }
-    private void handleDisconnect() {
+   /* private void handleDisconnect() {
         server.SendToAll(this, username + " has disconnected!");
         server.SendToAll(this, "REMOVE USER " + username);
         server.SendToAll(this, "REMOVE PLAYER " + username);
@@ -261,5 +261,5 @@ public class YambPlayerThread extends Thread{
         }
 
         server.removePlayer(this);
-    }
+    }*/
 }

@@ -28,6 +28,10 @@ public class YambServer {
         server.execute(); // ovde sam slucajno napravio neku promjenu --- Srdjan
     }
 
+    public Set<YambPlayerThread> getPlayers() {
+        return players;
+    }
+
     private void execute() {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             System.out.println("Server sluša na portu: "+ PORT);

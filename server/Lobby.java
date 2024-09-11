@@ -13,7 +13,7 @@ public class Lobby {
     private final Set<YambPlayerThread> players;
     private boolean privateLobby;
     private boolean gameStarted;
-    private Uno uno;
+    //private Uno uno;
 
 
     public Lobby(YambServer server, YambPlayerThread admin, String lobbyName) {
@@ -24,13 +24,13 @@ public class Lobby {
         this.players.add(admin);
     }
 
-    public void start() {
-        uno = new Uno(server, this, players);
-        players.forEach(player -> player.sendResponse("CARDS CARDS " + player.getDeck()));
-        gameStarted = true;
-        server.SendInGame(this, "BLOCK");
-        uno.getPlayerOnMove().sendResponse(uno.getPlayerOnMove().getDeck().getPlayableCards(uno.getCurrentCard(), uno.getCurrentColor(), false));
-    }
+//    public void start() {
+//        uno = new Uno(server, this, players);
+//        players.forEach(player -> player.sendResponse("CARDS CARDS " + player.getDeck()));
+//        gameStarted = true;
+//        server.SendInGame(this, "BLOCK");
+//        uno.getPlayerOnMove().sendResponse(uno.getPlayerOnMove().getDeck().getPlayableCards(uno.getCurrentCard(), uno.getCurrentColor(), false));
+//    }
 
 
     public String getLobbyName() {
@@ -53,9 +53,9 @@ public class Lobby {
         return gameStarted;
     }
 
-    public Uno getUno() {
-        return uno;
-    }
+//    public Uno getUno() {
+//        return uno;
+//    }
 
     public void setPrivateLobby(boolean privateLobby) {
         this.privateLobby = privateLobby;
