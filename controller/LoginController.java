@@ -1,4 +1,5 @@
 package controller;
+import client.YambApp;
 import client.YambPlayer;
 import client.YambPlayerThread;
 import javafx.event.ActionEvent;
@@ -24,7 +25,7 @@ public class LoginController {
     private Button loginBtn;
     private Socket socket;
 
-    private YambServer server;
+    private YambServer server = YambServer.getInstance();
     private YambPlayerThread player;
     String url = "/view/LoginView.fxml";
 
@@ -33,14 +34,14 @@ public class LoginController {
     void LoginBtnClick(ActionEvent event) throws IOException {
         String username = textField.getText();
         System.out.println("Login button clicked!");
-        
+
         if (username.isEmpty()){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText("Text field warning");
             alert.setContentText("Text field is empty!");
             alert.show();
-        }else if(!server.usernameAvailable(username)){
+        }else if(!server.usernameAvailable(username) && server.getPlayers().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText("Text field warning");
@@ -53,7 +54,6 @@ public class LoginController {
 
             player.handlePlayerConnect(username);
             server.getPlayers().add(player);
-            System.out.println(server.getPlayers().toString());
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FirstPageView.fxml"));
                 Parent root = loader.load();
@@ -63,6 +63,7 @@ public class LoginController {
                 FirstPageController controller = loader.getController();
 
                 controller.setNameLabel(username);
+                System.out.println(server.getPlayers().toString());
 
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
@@ -88,5 +89,9 @@ public class LoginController {
 
     public void setServer(YambServer server) {
         this.server = server;
+    }
+
+    public TextField getTextField() {
+        return textField;
     }
 }

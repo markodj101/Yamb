@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
@@ -35,10 +36,22 @@ public class LobbyController {
     private Button startGameBtn;
     String url = "/view/LobbyView.fxml";
     GameController controller;
+    LobbyController lobbyController;
+    FirstPageController firstPageController;
+    YambPlayer player;
 
     @FXML
     void InviteBtnClick(ActionEvent event) {
-
+        String username = lobbyController.getLVAvailablePlayers().getSelectionModel().getSelectedItem();
+        if (username == null){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("List View warning");
+            alert.setContentText("Select player from ListView!");
+            alert.show();
+        }
+        else
+            player.sendRequest("INVITE " + player.getUsername() + " " + username);
     }
 
     @FXML
@@ -50,16 +63,17 @@ public class LobbyController {
             Stage stage = new Stage();
             stage.setTitle("YAMB");
             controller = loader.getController();
-            //moramo skontati kako cemo napraviti da  za svakog korisnika njegovo ime na njegovom ekranu bude ispisano
-            //controller.setNameLbl();
+            controller.setNameLbl(firstPageController.getNameLabel().getText());
+            controller.setLblSumSum("0");
+            controller.setScoreLabel("0");
+            controller.setAttemptsLbl("3");
 
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
 
-            Stage currentStage = (Stage) startGameBtn.getScene().getWindow();
-            currentStage.close();
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -101,5 +115,13 @@ public class LobbyController {
 
     public ListView<String> getLVAvailablePlayers() {
         return LVAvailablePlayers;
+    }
+
+    public Button getStartGameBtn() {
+        return startGameBtn;
+    }
+
+    public Button getInviteBtn() {
+        return inviteBtn;
     }
 }

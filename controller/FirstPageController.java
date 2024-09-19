@@ -42,16 +42,16 @@ public class FirstPageController {
             Stage stage = new Stage();
             stage.setTitle("YAMB");
             controller = loader.getController();
-
             controller.setNameLbl(nameLabel.getText());
+            controller.setLblSumSum("0");
+            controller.setScoreLabel("0");
+            controller.setAttemptsLbl("3");
 
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
 
-            Stage currentStage = (Stage) playAloneBtn.getScene().getWindow();
-            currentStage.close();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -98,6 +98,18 @@ public class FirstPageController {
         primaryStage.setTitle("YAMB");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+    }
+
+    public Button getCreateGameBtn() {
+        return createGameBtn;
+    }
+
+    public Button getPlayAloneBtn() {
+        return playAloneBtn;
+    }
+
+    public Label getNameLabel() {
+        return nameLabel;
     }
 }
 

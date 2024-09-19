@@ -2,6 +2,8 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -19,11 +21,10 @@
       </ImageView>
       <AnchorPane layoutX="23.0" layoutY="26.0" prefHeight="520.0" prefWidth="390.0" style="-fx-background-color: rgba(211, 211, 211, 0.5); -fx-background-radius: 40;">
          <children>
-            <GridPane alignment="CENTER" layoutX="27.0" layoutY="12.0" prefHeight="491.0" prefWidth="338.0">
+            <GridPane alignment="CENTER" layoutX="27.0" layoutY="12.0" prefHeight="491.0" prefWidth="338.0" style="-fx-border-color: rgb(0,0,0); -fx-border-width: 2; -fx-border-insets: 2;">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="171.0" minWidth="10.0" prefWidth="143.2" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.8" minWidth="10.0" prefWidth="140.8" />
-                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.8" minWidth="10.0" prefWidth="140.8" />
                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.8" minWidth="10.0" prefWidth="140.8" />
                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.8" minWidth="10.0" prefWidth="140.8" />
                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.8" minWidth="10.0" prefWidth="140.8" />
@@ -40,19 +41,15 @@
                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                 <RowConstraints maxHeight="38.39999999999998" minHeight="10.0" prefHeight="31.199987792968727" vgrow="SOMETIMES" />
+                 <RowConstraints maxHeight="30.399999999999977" minHeight="10.0" prefHeight="29.600012207031227" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="YAMB" textFill="WHITE" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="↑↓" textFill="WHITE" GridPane.columnIndex="2" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="↓" textFill="WHITE" GridPane.columnIndex="2" />
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="↑" textFill="WHITE" GridPane.columnIndex="1" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="↓" textFill="WHITE" GridPane.columnIndex="3" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="N" textFill="WHITE" GridPane.columnIndex="4" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="SUM" textFill="WHITE" GridPane.columnIndex="5" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="↑↓" textFill="WHITE" GridPane.columnIndex="3" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="SUM" textFill="WHITE" GridPane.columnIndex="4" />
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="1" textFill="WHITE" GridPane.rowIndex="1" />
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="2" textFill="WHITE" GridPane.rowIndex="2" />
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="3" textFill="WHITE" GridPane.rowIndex="3" />
@@ -63,22 +60,53 @@
                      <font>
                         <Font size="14.0" />
                      </font></Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="MIN" textFill="WHITE" GridPane.rowIndex="8" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="MAX" textFill="WHITE" GridPane.rowIndex="9" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="Σ" GridPane.rowIndex="10">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="KENTA" textFill="WHITE" GridPane.rowIndex="8" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="FUL" textFill="WHITE" GridPane.rowIndex="9" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="TRILING" textFill="WHITE" GridPane.rowIndex="10" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="YAMB" textFill="WHITE" GridPane.rowIndex="11" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="Σ" GridPane.rowIndex="12">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="KENTA" textFill="WHITE" GridPane.rowIndex="11" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="FUL" textFill="WHITE" GridPane.rowIndex="12" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="TRILING" textFill="WHITE" GridPane.rowIndex="13" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="YAMB" textFill="WHITE" GridPane.rowIndex="14" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="59.0" text="Σ" GridPane.rowIndex="15">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
+                  <Label fx:id="lbl1_1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="lbl1_2" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Label fx:id="lbl1_3" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <Label fx:id="lbl2_1" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="lbl2_2" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Label fx:id="lbl2_3" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <Label fx:id="lbl3_1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label fx:id="lbl3_2" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <Label fx:id="lbl3_3" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <Label fx:id="lbl4_1" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label fx:id="lbl5_1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label fx:id="lbl4_2" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <Label fx:id="lbl5_2" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <Label fx:id="lbl4_3" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                  <Label fx:id="lbl5_3" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                  <Label fx:id="lbl6_1" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Label fx:id="lbl6_2" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                  <Label fx:id="lbl6_3" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                  <Label fx:id="lblSumUp" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Label fx:id="lblSumDown" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                  <Label fx:id="lblSumUpDown" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+                  <Label fx:id="lblSumSum" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+                  <Label fx:id="lblKentaUp" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <Label fx:id="lblKentaDown" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                  <Label fx:id="lblKentaUpDown" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+                  <Label fx:id="lblFullUp" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <Label fx:id="lblFullDown" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                  <Label fx:id="lblFullUpDown" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+                  <Label fx:id="lblTrillingUp" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                  <Label fx:id="lblTrillingDown" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+                  <Label fx:id="lblTrillingUpDown" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+                  <Label fx:id="lblYambUp" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                  <Label fx:id="lblYambDown" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+                  <Label fx:id="lblYambUpDown" GridPane.columnIndex="3" GridPane.rowIndex="11" />
+                  <Label fx:id="lblUp2" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                  <Label fx:id="lblDown2" GridPane.columnIndex="2" GridPane.rowIndex="12" />
+                  <Label fx:id="lblUpDown2" GridPane.columnIndex="3" GridPane.rowIndex="12" />
+                  <Label fx:id="lblFinalScore" GridPane.columnIndex="4" GridPane.rowIndex="12" />
                </children>
             </GridPane>
          </children>
@@ -116,7 +144,19 @@
                </font>
             </Label>
             <Label fx:id="attemptsLbl" layoutX="149.0" layoutY="78.0" text="Label" />
+            <Label fx:id="scoreLabel" layoutX="127.0" layoutY="38.0" text="Label" />
+            <TextField fx:id="taDice1" layoutX="27.0" layoutY="144.0" prefHeight="26.0" prefWidth="39.0" />
+            <TextField fx:id="taDice2" layoutX="86.0" layoutY="144.0" prefHeight="26.0" prefWidth="39.0" />
+            <TextField fx:id="taDice3" layoutX="143.0" layoutY="144.0" prefHeight="26.0" prefWidth="39.0" />
+            <TextField fx:id="taDice4" layoutX="205.0" layoutY="144.0" prefHeight="26.0" prefWidth="39.0" />
+            <TextField fx:id="taDice5" layoutX="266.0" layoutY="144.0" prefHeight="26.0" prefWidth="39.0" />
+            <RadioButton fx:id="rb1" layoutX="39.0" layoutY="182.0" mnemonicParsing="false" />
+            <RadioButton fx:id="rb2" layoutX="98.0" layoutY="182.0" mnemonicParsing="false" />
+            <RadioButton fx:id="rb3" layoutX="155.0" layoutY="182.0" mnemonicParsing="false" />
+            <RadioButton fx:id="rb4" layoutX="217.0" layoutY="182.0" mnemonicParsing="false" />
+            <RadioButton fx:id="rb5" layoutX="279.0" layoutY="182.0" mnemonicParsing="false" />
          </children>
       </AnchorPane>
+      <Button fx:id="BtnBack" layoutX="693.0" layoutY="26.0" mnemonicParsing="false" onAction="#BackBtnClick" text="Back" />
    </children>
 </AnchorPane>

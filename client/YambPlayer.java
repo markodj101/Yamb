@@ -58,6 +58,9 @@ public class YambPlayer extends Thread{
             close();
         }
     }
+    public void sendRequest(String request) {
+        toServer.println(request);
+    }
 
     /*private void handleResponse(String response) {
         String[] parts = response.split(" ", 3);

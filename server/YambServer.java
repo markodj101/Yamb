@@ -13,19 +13,18 @@ import java.util.stream.Collectors;
 
 public class YambServer {
     public static final int PORT = 8080;
-    private final Set<YambPlayerThread> players; //ovo je za sad kao ClientThread
-    private final Set<Lobby> lobbies; //ovo je za sad kao Lobby
+    public final Set<YambPlayerThread> players; //ovo je za sad kao ClientThread
+    private static YambServer instance;
 
     public YambServer() {
         this.players = Collections.synchronizedSet(new HashSet<>());
-        this.lobbies = Collections.synchronizedSet(new HashSet<>());
 
     }
 
 
     public static void main(String[] args) {
         YambServer server = new YambServer();
-        server.execute(); // ovde sam slucajno napravio neku promjenu --- Srdjan
+        server.execute();
     }
 
     public Set<YambPlayerThread> getPlayers() {
@@ -34,7 +33,7 @@ public class YambServer {
 
     private void execute() {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
-            System.out.println("Server sluša na portu: "+ PORT);
+            System.out.println("Server sluša na portu: " + PORT);
             while (true) {
                 Socket playerSocket = serverSocket.accept();
                 new YambPlayerThread(playerSocket,this).start();
@@ -42,6 +41,12 @@ public class YambServer {
         }catch (IOException e){
             System.err.println(e.getMessage()); //msgg
         }
+    }
+    public static synchronized YambServer getInstance() {
+        if (instance == null) {
+            instance = new YambServer();
+        }
+        return instance;
     }
 
     public boolean usernameAvailable(String username) {
@@ -53,14 +58,6 @@ public class YambServer {
         return true;
     }
 
-    public boolean lobbyNameAvailable(String lobbyName) {
-        for (Lobby lobby : lobbies) {
-            if(lobby.getLobbyName().equals(lobbyName)){
-                return false;
-            }
-        }
-        return true;
-    }
 
 
     public void addPlayer(YambPlayerThread player) {
@@ -71,20 +68,11 @@ public class YambServer {
         players.remove(player);
     }
 
-    public void removeLobby(Lobby lobby) {
-        lobbies.remove(lobby);
-    }
-
-    public void addNewLobby(Lobby lobby) {
-        lobbies.add(lobby);
-    }
 
     public YambPlayerThread getPlayerbyUsername(String username) {
         return players.stream().filter(player -> player.getUsername().equals(username)).findFirst().orElse(null); //promjeniti da bude efikasnije
     }
-    public Lobby getPlayerbyLobbyName(String lobbyName) {
-        return lobbies.stream().filter(lobby -> lobby.getLobbyName().equals(lobbyName)).findFirst().orElse(null); //promjeniti da bude efikasnije
-    }
+
 
     public String ConnectedPlayers(YambPlayerThread player){
         synchronized (player){
@@ -98,11 +86,7 @@ public class YambServer {
         }
     }
 
-    public String getLobbies(){
-        synchronized (lobbies){
-            return lobbies.stream().map(Lobby::toString).collect(Collectors.joining(" "));
-        }
-    }
+
 
     public void SendToAll(YambPlayerThread player, String msg){
         synchronized (players){

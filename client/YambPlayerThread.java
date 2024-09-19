@@ -78,12 +78,6 @@ public class YambPlayerThread extends Thread{
             case "CONNECT":
                 handlePlayerConnect(parts[1]);
                 break;
-            case "CREATE_LOBBY":
-                handleCreateLobby(parts[1]);
-                break;
-            case "JOIN":
-                handleJoinLobby(parts[1]);
-                break;
             case "READY":
                 handleSetReady(parts[1]);
                 break;
@@ -95,9 +89,6 @@ public class YambPlayerThread extends Thread{
                 break;
             case "ACCEPT":
                 handleAcceptInvite(parts[1]);
-                break;
-            case "DECLINE":
-                server.SendToGame(this, server.getPlayerbyLobbyName(parts[1]), username + " declined invite!");
                 break;
             case "LEAVE":
                 handleLeaveLobby();
@@ -125,45 +116,13 @@ public class YambPlayerThread extends Thread{
 
             server.SendToAll(this, username + " joined server!");
             sendResponse("ADD USER " + server.ConnectedPlayers(this));
-            sendResponse("ADD LOBBY " + server.getLobbies());
 
             server.SendToAll(this, "ADD USER " + username);
             this.username = username;
         }
     }
-    private void handleCreateLobby(String lobbyName) {
-        if (!server.lobbyNameAvailable(lobbyName))
-            sendResponse("CREATE_LOBBY false " + lobbyName);
-        else {
-            sendResponse("CREATE_LOBBY true " + lobbyName);
-            sendResponse("ADD LOBBY " + lobbyName);
 
-            lobby = new Lobby(server, this, lobbyName);
-            server.addNewLobby(lobby);
 
-            server.SendToAll(this, username + " created new lobby!");
-            server.SendToAll(this, "ADD LOBBY " + lobbyName);
-            setReady(true);
-        }
-    }
-    private void handleJoinLobby(String lobbyName) {
-        Lobby lobby = server.getPlayerbyLobbyName(lobbyName);
-
-        if (lobby.isGameStarted())
-            sendResponse("ERROR START Game started in this lobby!");
-        else if (lobby.isPrivateLobby())
-            sendResponse("ERROR START Lobby " + lobbyName + " is private!");
-        else {
-            lobby.addPlayer(this);
-            this.lobby = lobby;
-
-            sendResponse("JOIN " + lobbyName);
-            sendResponse("ADD PLAYER " + server.PlayersInLobby(this, lobby));
-
-            server.SendToGame(this, lobby, this.username + " joined lobby!");
-            server.SendToGame(this, lobby, "ADD PLAYER " + this.username);
-        }
-    }
     private void handleSetReady(String ready) {
         setReady(ready.equals("true"));
         server.SendToGame(this, lobby, username + " is " + (ready.equals("true") ? "ready!" : "not ready!"));
@@ -173,7 +132,7 @@ public class YambPlayerThread extends Thread{
     }
     private void handlePlayerInvite(String lobbyName, String sender, String receiver) {
         YambPlayerThread user = server.getPlayerbyUsername(receiver);
-        Lobby lobby = server.getPlayerbyLobbyName(lobbyName);
+
 
         if (lobby.isPlayerInLobby(user))
             sendResponse("ERROR LOBBY " + user.getUsername() + " is already in lobby!");
@@ -186,7 +145,7 @@ public class YambPlayerThread extends Thread{
         if (this.lobby != null)
             handleLeaveLobby();
 
-        Lobby lobby = server.getPlayerbyLobbyName(lobbyName);
+
         lobby.addPlayer(this);
         this.lobby = lobby;
 
@@ -204,7 +163,6 @@ public class YambPlayerThread extends Thread{
         setReady(false);
 
         if (lobby.isEmpty()) {
-            server.removeLobby(lobby);
             sendResponse("REMOVE LOBBY " + lobby.getLobbyName());
             server.SendToAll(this, "REMOVE LOBBY " + lobby.getLobbyName());
             server.SendToAll(this, "Lobby " + lobby.getLobbyName() + " is removed!");
