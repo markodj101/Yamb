@@ -55,24 +55,24 @@
                      <font>
                         <Font size="14.0" />
                      </font></Label>
-                  <Label fx:id="lbl1_1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label fx:id="lbl1_2" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Label fx:id="lbl1_3" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <Label fx:id="lbl2_1" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label fx:id="lbl2_2" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Label fx:id="lbl2_3" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <Label fx:id="lbl3_1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label fx:id="lbl3_2" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <Label fx:id="lbl3_3" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                  <Label fx:id="lbl4_1" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Label fx:id="lbl5_1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <Label fx:id="lbl4_2" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                  <Label fx:id="lbl5_2" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                  <Label fx:id="lbl4_3" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                  <Label fx:id="lbl5_3" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-                  <Label fx:id="lbl6_1" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <Label fx:id="lbl6_2" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-                  <Label fx:id="lbl6_3" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                  <Label fx:id="lbl1_1" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="66.0" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="lbl1_2" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="66.0" text="-" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Label fx:id="lbl1_3" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="66.0" text="-" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <Label fx:id="lbl2_1" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="66.0" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="lbl2_2" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="65.0" text="-" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Label fx:id="lbl2_3" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="65.0" text="-" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <Label fx:id="lbl3_1" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="66.0" text="-" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label fx:id="lbl3_2" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="65.0" text="-" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <Label fx:id="lbl3_3" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="66.0" text="-" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <Label fx:id="lbl4_1" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="67.0" text="-" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label fx:id="lbl5_1" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="66.0" text="-" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label fx:id="lbl4_2" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="66.0" text="-" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <Label fx:id="lbl5_2" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="65.0" text="-" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <Label fx:id="lbl4_3" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="66.0" text="-" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                  <Label fx:id="lbl5_3" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="66.0" text="-" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                  <Label fx:id="lbl6_1" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="70.0" text="-" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Label fx:id="lbl6_2" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="66.0" text="-" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                  <Label fx:id="lbl6_3" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="66.0" text="-" GridPane.columnIndex="3" GridPane.rowIndex="6" />
                   <Label fx:id="lblSumUp" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <Label fx:id="lblSumDown" GridPane.columnIndex="2" GridPane.rowIndex="7" />
                   <Label fx:id="lblSumUpDown" GridPane.columnIndex="3" GridPane.rowIndex="7" />

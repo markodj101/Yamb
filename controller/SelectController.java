@@ -95,4 +95,40 @@ public class SelectController {
 
     }
 
+    public void setBtn1(Label lbl1) {
+        this.btn1.setText(lbl1.getText());
+    }
+    public void setBtn2(Label lbl1) {
+        this.btn1.setText(lbl1.getText());
+    }
+    public void setBtn3(Label lbl1) {
+        this.btn1.setText(lbl1.getText());
+    }
+    public void setBtn4(Label lbl1) {
+        this.btn1.setText(lbl1.getText());
+    }
+    public void setBtn5(Label lbl1) {
+        this.btn1.setText(lbl1.getText());
+    }
+    public void setBtn6(Label lbl1) {
+        this.btn1.setText(lbl1.getText());
+    }
+    public void setBtnCenter(Label lbl1) {
+        this.btn1.setText(lbl1.getText());
+    }
+    public void setBtnLeft(Label lbl1) {
+        this.btn1.setText(lbl1.getText());
+    }
+
+    public void setLblUp(int i) {
+        String nastavak = i + "";
+        String strelica = lblDown.getText();
+        this.lblUp.setText(strelica + nastavak);;
+    }
+
+    public void setLblDown(int i) {
+        String nastavak = i + "";
+        String strelica = lblDown.getText();
+        this.lblDown.setText(strelica + nastavak);
+    }
 }
