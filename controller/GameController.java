@@ -130,15 +130,17 @@ public class GameController {
     private TextField taDice5;
     String url = "/view/GameView.fxml";
 
-    private List<Label> from6To1 = Arrays.asList(lbl6_1, lbl5_1, lbl4_1, lbl3_1, lbl2_1, lbl1_1);
-    private List<Label> from1To6 = Arrays.asList(lbl1_2, lbl2_2, lbl3_2, lbl4_2, lbl5_2, lbl6_2);
+    private List<Label> from6To1;
+    private List<Label> from1To6;
+    private List<Label> upDownList;
+
     private List<Label> from1To6indicator = new ArrayList<>();
-    private List<Label> upDownList = Arrays.asList(lbl1_3, lbl2_3, lbl3_3, lbl4_3, lbl5_3, lbl6_3);
+
     @FXML
     public void initialize() {
-        from6To1 = Arrays.asList(lbl6_1, lbl5_1, lbl4_1, lbl3_1, lbl2_1, lbl1_1);
-        from1To6 = Arrays.asList(lbl1_2, lbl2_2, lbl3_2, lbl4_2, lbl5_2, lbl6_2);
-        upDownList = Arrays.asList(lbl1_3, lbl2_3, lbl3_3, lbl4_3, lbl5_3, lbl6_3);
+         from6To1 = new ArrayList<>(Arrays.asList(lbl6_1, lbl5_1, lbl4_1, lbl3_1, lbl2_1, lbl1_1));
+         from1To6 = new ArrayList<>(Arrays.asList(lbl1_2, lbl2_2, lbl3_2, lbl4_2, lbl5_2, lbl6_2));
+         upDownList = new ArrayList<>(Arrays.asList(lbl1_3, lbl2_3, lbl3_3, lbl4_3, lbl5_3, lbl6_3));
     }
 
     @FXML
@@ -157,7 +159,7 @@ public class GameController {
         Random random = new Random();
         int attempts = Integer.parseInt(attemptsLbl.getText());
 
-        if (attempts > 0) {
+        if (attempts > 1) {
             // Ažuriraj kockice samo ako nisu označene
             if (!rb1.isSelected()) {
                 dice1 = random.nextInt(6) + 1;
@@ -180,13 +182,17 @@ public class GameController {
                 taDice5.setText(dice5 + "");
             }
 
-            // Smanji broj pokušaja
             attempts--;
             attemptsLbl.setText("" + attempts);
 
         } else {
             System.out.println("No more attempts left!");
             attemptsLbl.setText("3");
+            rb1.setSelected(false);
+            rb2.setSelected(false);
+            rb3.setSelected(false);
+            rb4.setSelected(false);
+            rb5.setSelected(false);
             try {
                 calculateOptions(dice1, dice2, dice3, dice4, dice5);
             } catch (IOException e) {
@@ -226,6 +232,12 @@ public class GameController {
 
     Label left;
     Label center;
+    Label updown1;
+    Label updown2;
+    Label updown3;
+    Label updown4;
+    Label updown5;
+    Label updown6;
 
     private void calculateOptions(int a, int b, int c, int d, int e) throws IOException {
         int[] options = {a, b, c, d, e};
@@ -242,8 +254,7 @@ public class GameController {
                 }
                 System.out.println("Sum left: " + leftSum);
                 left = l;
-                left.setText(leftSum + "");
-                iterator.remove();  // Bezbedno uklanjanje elementa
+                iterator.remove();
                 break;
             }
         }
@@ -259,56 +270,58 @@ public class GameController {
                 }
                 System.out.println("Sum center: " + centerSum);
                 center = l;
-                center.setText(centerSum + "");
                 from1To6indicator.add(l);
                 break;
             }
         }
-        System.out.println(left.getText());
-        System.out.println(center.getText());
+
 
         int sum1 = 0;
-        Label updown1 = upDownList.get(0);
         for(int option: options){
             if (option == 1)
                 sum1 += option;
         }
-        updown1.setText(sum1 + "");
+
         int sum2 = 0;
-        Label updown2 = upDownList.get(1);
         for(int option: options){
             if (option == 2)
                 sum2 += option;
         }
-        updown2.setText(sum2 + "");
+
         int sum3 = 0;
-        Label updown3 = upDownList.get(2);
         for(int option: options){
             if (option == 3)
                 sum3 += option;
         }
-        updown3.setText(sum3 + "");
+
         int sum4 = 0;
-        Label updown4 = upDownList.get(3);
         for(int option: options){
             if (option == 4)
                 sum4 += option;
         }
-        updown4.setText(sum4 + "");
+
         int sum5 = 0;
-        Label updown5 = upDownList.get(4);
         for(int option: options){
             if (option == 5)
                 sum5 += option;
         }
-        updown5.setText(sum5 + "");
+
         int sum6 = 0;
-        Label updown6 = upDownList.get(5);
         for(int option: options){
             if (option == 6)
                 sum6 += option;
         }
-        updown6.setText(sum6 + "");
+
+        updown1 = upDownList.get(0);
+        updown2 = upDownList.get(1);
+        updown3 = upDownList.get(2);
+        updown4 = upDownList.get(3);
+        updown5 = upDownList.get(4);
+        updown6 = upDownList.get(5);
+
+
+
+
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SelectBoxView.fxml"));
         Parent root = loader.load();
@@ -316,16 +329,18 @@ public class GameController {
         Stage stage = new Stage();
         stage.setTitle("SELECT BOX");
         SelectController controller = loader.getController();
+        controller.setGameController(this);
 
-        controller.setBtn1(updown1);
-        controller.setBtn2(updown2);
-        controller.setBtn3(updown3);
-        controller.setBtn4(updown4);
-        controller.setBtn5(updown5);
-        controller.setBtn6(updown6);
 
-        controller.setBtnLeft(left);
-        controller.setBtnCenter(center);
+        controller.setBtn1(sum1 + "");
+        controller.setBtn2(sum2 + "");
+        controller.setBtn3(sum3 + "");
+        controller.setBtn4(sum4 + "");
+        controller.setBtn5(sum5 + "");
+        controller.setBtn6(sum6 + "");
+
+        controller.setBtnLeft(leftSum + "");
+        controller.setBtnCenter(centerSum + "");
 
         controller.setLblUp(indicator);
         controller.setLblDown(indicator2);
@@ -336,5 +351,38 @@ public class GameController {
         stage.setScene(scene);
         stage.show();
 
+    }
+
+
+    public void setLeft(String s) {
+        this.left.setText(s);
+    }
+
+    public void setCenter(String s) {
+        this.center.setText(s);
+    }
+
+    public void setUpdown1(String s) {
+        this.updown1.setText(s);
+    }
+
+    public void setUpdown2(String s) {
+        this.updown2.setText(s);
+    }
+
+    public void setUpdown3(String s) {
+        this.updown3.setText(s);
+    }
+
+    public void setUpdown4(String s) {
+        this.updown4.setText(s);
+    }
+
+    public void setUpdown5(String s) {
+        this.updown5.setText(s);
+    }
+
+    public void setUpdown6(String s) {
+        this.updown6.setText(s);
     }
 }
