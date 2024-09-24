@@ -3,6 +3,7 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -147,9 +148,14 @@ public class GameController {
     void BackBtnClick(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
-        alert.setHeaderText("Are you sure you want to leave game?");
+        alert.setHeaderText("Are you sure you want to leave the game?");
         alert.setContentText("Please confirm your action!");
-        alert.show();
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.close();
+            }
+        });
     }
 
     private int dice1, dice2, dice3, dice4, dice5;
@@ -160,7 +166,7 @@ public class GameController {
         int attempts = Integer.parseInt(attemptsLbl.getText());
 
         if (attempts > 1) {
-            // Ažuriraj kockice samo ako nisu označene
+
             if (!rb1.isSelected()) {
                 dice1 = random.nextInt(6) + 1;
                 taDice1.setText(dice1 + "");
@@ -193,7 +199,43 @@ public class GameController {
             rb3.setSelected(false);
             rb4.setSelected(false);
             rb5.setSelected(false);
+            taDice1.clear();
+            taDice2.clear();
+            taDice3.clear();
+            taDice4.clear();
+            taDice5.clear();
+            if(!lblSumUp.getText().equals("-") && !lblSumDown.getText().equals("-") && !lblSumUpDown.getText().equals("-")){
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText("The game is over!");
+                alert.setContentText("Your score is " + scoreLabel.getText() + "!");
+                alert.showAndWait().ifPresent(response -> {
+                    if (response == ButtonType.OK) {;
+                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        stage.close();
+                    }
+                });
+                rollBtn.setDisable(true);
+                return;
+            }
             try {
+                for (Label l:
+                     from6To1) {
+                    if(!isLblEmpty(l)){
+                        from6To1.remove(l);
+                        break;
+                    }
+                }
+                for (Label l:
+                        from1To6) {
+                    if(!isLblEmpty(l)){
+                        from1To6.remove(l);
+                        from1To6indicator.add(l);
+                        System.out.println("From 1 to 6 size after removal: " + from1To6.size());
+                        break;
+                    }
+                }
+
                 calculateOptions(dice1, dice2, dice3, dice4, dice5);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -239,40 +281,69 @@ public class GameController {
     Label updown5;
     Label updown6;
 
+    int sumUpIndicator = 1;
+    int sumDownIndicator = 1;
+    int sumUpDownIndicator = 1;
+
+
+
     private void calculateOptions(int a, int b, int c, int d, int e) throws IOException {
         int[] options = {a, b, c, d, e};
 
         int leftSum = 0;
         int indicator = from6To1.size();
-        Iterator<Label> iterator = from6To1.iterator();
-        while (iterator.hasNext()) {
-            Label l = iterator.next();
-            if (l != null) {
-                for (int option : options) {
-                    if (option == indicator)
-                        leftSum += option;
+        if (indicator != 0){
+            Iterator<Label> iterator = from6To1.iterator();
+            while (iterator.hasNext()) {
+                Label l = iterator.next();
+                if (l != null) {
+                    for (int option : options) {
+                        if (option == indicator)
+                            leftSum += option;
+                    }
+                    left = l;
+                    break;
                 }
-                System.out.println("Sum left: " + leftSum);
-                left = l;
-                iterator.remove();
-                break;
             }
+        }else{
+            int one = Integer.parseInt(lbl1_1.getText());
+            int two = Integer.parseInt(lbl2_1.getText());
+            int three = Integer.parseInt(lbl3_1.getText());
+            int four = Integer.parseInt(lbl4_1.getText());
+            int five = Integer.parseInt(lbl5_1.getText());
+            int six = Integer.parseInt(lbl6_1.getText());
+
+            int sumUp = one + two + three + four + five + six;
+            lblSumUp.setText(sumUp + "");
         }
+
         int centerSum = 0;
         int indicator2 = from1To6indicator.size() + 1;
-        Iterator<Label> iterator2 = from1To6.iterator();
-        while (iterator2.hasNext()) {
-            Label l = iterator2.next();
-            if (l != null) {
-                for (int option : options) {
-                    if (option == indicator2)
-                        centerSum += option;
+        System.out.println("From 1 to 6 size before removal: " + indicator2);
+        if (indicator2 < 7){
+            Iterator<Label> iterator2 = from1To6.iterator();
+            while (iterator2.hasNext()) {
+                Label l = iterator2.next();
+                if (l != null) {
+                    for (int option : options) {
+                        if (option == indicator2)
+                            centerSum += option;
+                    }
+                    System.out.println("Sum center: " + centerSum);
+                    center = l;
+                    break;
                 }
-                System.out.println("Sum center: " + centerSum);
-                center = l;
-                from1To6indicator.add(l);
-                break;
             }
+        } else{
+            int one = Integer.parseInt(lbl1_2.getText());
+            int two = Integer.parseInt(lbl2_2.getText());
+            int three = Integer.parseInt(lbl3_2.getText());
+            int four = Integer.parseInt(lbl4_2.getText());
+            int five = Integer.parseInt(lbl5_2.getText());
+            int six = Integer.parseInt(lbl6_2.getText());
+
+            int sumDown = one + two + three + four + five + six;
+            lblSumDown.setText(sumDown + "");
         }
 
 
@@ -320,24 +391,81 @@ public class GameController {
         updown6 = upDownList.get(5);
 
 
-
-
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SelectBoxView.fxml"));
         Parent root = loader.load();
 
         Stage stage = new Stage();
+
         stage.setTitle("SELECT BOX");
         SelectController controller = loader.getController();
         controller.setGameController(this);
 
-
         controller.setBtn1(sum1 + "");
+        if(!isLblEmpty(getLbl1_3())){
+            controller.getBtn1().setDisable(true);
+        }
         controller.setBtn2(sum2 + "");
+        if(!isLblEmpty(getLbl2_3())){
+            controller.getBtn2().setDisable(true);
+        }
         controller.setBtn3(sum3 + "");
+        if(!isLblEmpty(getLbl3_3())){
+            controller.getBtn3().setDisable(true);
+        }
         controller.setBtn4(sum4 + "");
+        if(!isLblEmpty(getLbl4_3())){
+            controller.getBtn4().setDisable(true);
+        }
         controller.setBtn5(sum5 + "");
+        if(!isLblEmpty(getLbl5_3())){
+            controller.getBtn5().setDisable(true);
+        }
         controller.setBtn6(sum6 + "");
+        if(!isLblEmpty(getLbl6_3())){
+            controller.getBtn6().setDisable(true);
+        }
+        if(from6To1.isEmpty()){
+            controller.getBtnLeft().setDisable(true);
+        }
+        if (from1To6indicator.size() == 6){
+            controller.getBtnCenter().setDisable(true);
+        }
+        if(!lblSumUp.getText().equals("-") && sumUpIndicator == 1){
+            int sumsum = Integer.parseInt(lblSumSum.getText());
+            int sumup = Integer.parseInt(lblSumUp.getText());
+            int finalSum = sumsum + sumup;
+            lblSumSum.setText(finalSum + "");
+            scoreLabel.setText(finalSum + "");
+            sumUpIndicator++;
+        }
+        if(!lblSumDown.getText().equals("-") && sumDownIndicator == 1){
+            int sumsum = Integer.parseInt(lblSumSum.getText());
+            int sumdown = Integer.parseInt(lblSumDown.getText());
+            int finalSum = sumsum + sumdown;
+            lblSumSum.setText(finalSum + "");
+            scoreLabel.setText(finalSum + "");
+            sumDownIndicator++;
+        }
+        if(!lblSumUpDown.getText().equals("-") && sumUpDownIndicator == 1){
+            int sumsum = Integer.parseInt(lblSumSum.getText());
+            int sumupdown = Integer.parseInt(lblSumUpDown.getText());
+            int finalSum = sumsum + sumupdown;
+            lblSumSum.setText(finalSum + "");
+            scoreLabel.setText(finalSum + "");
+            sumUpDownIndicator++;
+        }
+        if(!isLblEmpty(getLbl1_3()) && !isLblEmpty(getLbl2_3()) && !isLblEmpty(getLbl3_3()) && !isLblEmpty(getLbl4_3()) && !isLblEmpty(getLbl5_3()) && !isLblEmpty(getLbl6_3())){
+            int one = Integer.parseInt(lbl1_3.getText());
+            int two = Integer.parseInt(lbl2_3.getText());
+            int three = Integer.parseInt(lbl3_3.getText());
+            int four = Integer.parseInt(lbl4_3.getText());
+            int five = Integer.parseInt(lbl5_3.getText());
+            int six = Integer.parseInt(lbl6_3.getText());
+
+            int sumUpdown = one + two + three + four + five + six;
+            lblSumUpDown.setText(sumUpdown + "");
+        }
+
 
         controller.setBtnLeft(leftSum + "");
         controller.setBtnCenter(centerSum + "");
@@ -345,44 +473,77 @@ public class GameController {
         controller.setLblUp(indicator);
         controller.setLblDown(indicator2);
 
-
-
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
 
     }
-
-
     public void setLeft(String s) {
         this.left.setText(s);
     }
-
     public void setCenter(String s) {
         this.center.setText(s);
     }
-
     public void setUpdown1(String s) {
         this.updown1.setText(s);
     }
-
     public void setUpdown2(String s) {
         this.updown2.setText(s);
     }
-
     public void setUpdown3(String s) {
         this.updown3.setText(s);
     }
-
     public void setUpdown4(String s) {
         this.updown4.setText(s);
     }
-
     public void setUpdown5(String s) {
         this.updown5.setText(s);
     }
-
     public void setUpdown6(String s) {
         this.updown6.setText(s);
+    }
+    public boolean isLblEmpty(Label label){
+        return label.getText().equals("-");
+    }
+    public Button getBtnBack() {
+        return BtnBack;
+    }
+    public Label getLbl1_3() {
+        return lbl1_3;
+    }
+    public Label getLbl2_3() {
+        return lbl2_3;
+    }
+    public Label getLbl3_3() {
+        return lbl3_3;
+    }
+    public Label getLbl4_3() {
+        return lbl4_3;
+    }
+    public Label getLbl5_3() {
+        return lbl5_3;
+    }
+    public Label getLbl6_3() {
+        return lbl6_3;
+    }
+
+    public TextField getTaDice1() {
+        return taDice1;
+    }
+
+    public TextField getTaDice2() {
+        return taDice2;
+    }
+
+    public TextField getTaDice3() {
+        return taDice3;
+    }
+
+    public TextField getTaDice4() {
+        return taDice4;
+    }
+
+    public TextField getTaDice5() {
+        return taDice5;
     }
 }

@@ -46,6 +46,11 @@ public class FirstPageController {
             controller.setLblSumSum("0");
             controller.setScoreLabel("0");
             controller.setAttemptsLbl("3");
+            controller.getTaDice1().setDisable(true);
+            controller.getTaDice2().setDisable(true);
+            controller.getTaDice3().setDisable(true);
+            controller.getTaDice4().setDisable(true);
+            controller.getTaDice5().setDisable(true);
 
 
             Scene scene = new Scene(root);

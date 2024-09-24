@@ -232,4 +232,36 @@ public class SelectController {
     public void setGameController(GameController controller) {
         this.controller = controller;
     }
+
+    public Button getBtn1() {
+        return btn1;
+    }
+
+    public Button getBtn2() {
+        return btn2;
+    }
+
+    public Button getBtn3() {
+        return btn3;
+    }
+
+    public Button getBtn4() {
+        return btn4;
+    }
+
+    public Button getBtn5() {
+        return btn5;
+    }
+
+    public Button getBtn6() {
+        return btn6;
+    }
+
+    public Button getBtnCenter() {
+        return btnCenter;
+    }
+
+    public Button getBtnLeft() {
+        return btnLeft;
+    }
 }

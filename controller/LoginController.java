@@ -41,7 +41,13 @@ public class LoginController {
             alert.setHeaderText("Text field warning");
             alert.setContentText("Text field is empty!");
             alert.show();
-        }else if(!server.usernameAvailable(username) && server.getPlayers().isEmpty()){
+        } else if (!usernameValidation(username)) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Text field warning");
+            alert.setContentText("First letter must be upperCase!\n(Min username length is 3)\n(Max username length is 8)");
+            alert.show();
+        } else if(!server.usernameAvailable(username) && server.getPlayers().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText("Text field warning");
@@ -93,5 +99,13 @@ public class LoginController {
 
     public TextField getTextField() {
         return textField;
+    }
+
+    private boolean usernameValidation(String string){
+        String[] letters = string.split("");
+        if (letters.length < 3 || letters.length > 8 || Character.isLowerCase(string.charAt(0)))
+            return false;
+
+        return true;
     }
 }
