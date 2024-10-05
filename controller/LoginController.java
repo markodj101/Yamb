@@ -1,7 +1,7 @@
 package controller;
-import client.YambApp;
 import client.YambPlayer;
 import client.YambPlayerThread;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,66 +23,62 @@ public class LoginController {
 
     @FXML
     private Button loginBtn;
-    private Socket socket;
-
-    private YambServer server = YambServer.getInstance();
-    private YambPlayerThread player;
+    private YambPlayer player;
     String url = "/view/LoginView.fxml";
 
+
+    public void usernameAvaliable(String indicator, String username) {
+        Platform.runLater(() -> {
+            if (!usernameValidation(textField.getText())) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Text field warning");
+                alert.setContentText("First letter must be uppercase!\nUsername length must be min 3 characters!\nUsername lenght must be max 8 characters\n");
+                alert.show();
+            } else if (indicator.equals("true")) {
+                switchPage();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Text field warning");
+                alert.setContentText("Username " + username + " is already used!");
+                alert.show();
+            }
+        });
+    }
+
+    private void switchPage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FirstPageView.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("YAMB");
+            FirstPageController controller = loader.getController();
+            controller.getNameLabel().setText(textField.getText());
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+            Stage currentStage = (Stage) loginBtn.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     void LoginBtnClick(ActionEvent event) throws IOException {
         String username = textField.getText();
+        System.out.println(username);
         System.out.println("Login button clicked!");
+        player.sendRequest("CONNECT " + username);
 
-        if (username.isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Text field warning");
-            alert.setContentText("Text field is empty!");
-            alert.show();
-        } else if (!usernameValidation(username)) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Text field warning");
-            alert.setContentText("First letter must be upperCase!\n(Min username length is 3)\n(Max username length is 8)");
-            alert.show();
-        } else if(!server.usernameAvailable(username) && server.getPlayers().isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Text field warning");
-            alert.setContentText("Username is not available!");
-            alert.show();
-        }else{
-            socket = new Socket("localhost", YambServer.PORT);
+    }
 
-            player = new YambPlayerThread(socket, server);
-
-            player.handlePlayerConnect(username);
-            server.getPlayers().add(player);
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FirstPageView.fxml"));
-                Parent root = loader.load();
-
-                Stage stage = new Stage();
-                stage.setTitle("YAMB");
-                FirstPageController controller = loader.getController();
-
-                controller.setNameLabel(username);
-                System.out.println(server.getPlayers().toString());
-
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
-
-                Stage currentStage = (Stage) loginBtn.getScene().getWindow();
-                currentStage.close();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
+    public void setPlayer(YambPlayer player){
+        this.player = player;
     }
 
     public Button getLoginBtn() {
@@ -91,10 +87,6 @@ public class LoginController {
 
     public String getUrl() {
         return url;
-    }
-
-    public void setServer(YambServer server) {
-        this.server = server;
     }
 
     public TextField getTextField() {

@@ -27,6 +27,7 @@ public class YambPlayer extends Thread{
             this.fromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.toServer = new PrintWriter(socket.getOutputStream(), true);
             this.yambApp = yambApp;
+            this.yambApp.loginController.setPlayer(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,7 +53,7 @@ public class YambPlayer extends Thread{
                     break;
                 }
 
-                //handleResponse(response);
+                handleResponse(response);
             }
         } catch (IOException e) {
             close();
@@ -62,54 +63,54 @@ public class YambPlayer extends Thread{
         toServer.println(request);
     }
 
-    /*private void handleResponse(String response) {
+    private void handleResponse(String response) {
         String[] parts = response.split(" ", 3);
 
         switch (parts[0]) {
             case "CONNECT":
-                yambApp.handleConnect(parts[1], parts[2]);
+                yambApp.loginController.usernameAvaliable(parts[1], parts[2]);
                 break;
-            case "ERROR":
-                ViewUtil.showErrorAlert(parts[2]);
-                break;
-            case "ADD":
-                yambApp.handleAddItems(parts[1], parts[2]);
-                break;
-            case "REMOVE":
-                yambApp.handleRemoveItem(parts[1], parts[2]);
-                break;
-            case "CREATE_LOBBY":
-                yambApp.handleCreateLobby(parts[1], parts[2]);
-                break;
-            case "JOIN":
-                yambApp.setLobbyScene(parts[1]);
-                break;
-            case "INVITE":
-                yambApp.showInviteAlert(parts[1], parts[2]);
-                break;
-            case "LEAVE":
-                yambApp.setStartScene();
-                break;
-            case "START":
-                yambApp.setGameScene();
-                break;
-            case "CURRENT":
-                yambApp.setCurrentCard(parts[1]);
-                break;
-            case "GAME_INFO":
-                yambApp.showGameInfo(parts[1], parts[2]);
-                break;
-            case "FINISH":
-                yambApp.showFinishAlert(parts[2]);
-                break;
+//            case "ERROR":
+//                ViewUtil.showErrorAlert(parts[2]);
+//                break;
+//            case "ADD":
+//                yambApp.handleAddItems(parts[1], parts[2]);
+//                break;
+//            case "REMOVE":
+//                yambApp.handleRemoveItem(parts[1], parts[2]);
+//                break;
+//            case "CREATE_LOBBY":
+//                yambApp.handleCreateLobby(parts[1], parts[2]);
+//                break;
+//            case "JOIN":
+//                yambApp.setLobbyScene(parts[1]);
+//                break;
+//            case "INVITE":
+//                yambApp.showInviteAlert(parts[1], parts[2]);
+//                break;
+//            case "LEAVE":
+//                yambApp.setStartScene();
+//                break;
+//            case "START":
+//                yambApp.setGameScene();
+//                break;
+//            case "CURRENT":
+//                yambApp.setCurrentCard(parts[1]);
+//                break;
+//            case "GAME_INFO":
+//                yambApp.showGameInfo(parts[1], parts[2]);
+//                break;
+//            case "FINISH":
+//                yambApp.showFinishAlert(parts[2]);
+//                break;
             case "DISCONNECT":
                 close();
                 break;
-            default:
-                ViewUtil.setTextLabel(yambApp.getLblMessage(), response);
-                break;
+//            default:
+//                ViewUtil.setTextLabel(yambApp.getLblMessage(), response);
+//                break;
         }
-    }*/
+    }
 
     private void close() {
         try {

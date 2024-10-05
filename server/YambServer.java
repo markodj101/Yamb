@@ -50,12 +50,7 @@ public class YambServer {
     }
 
     public boolean usernameAvailable(String username) {
-        for (YambPlayerThread player : players) {
-            if (player.getUsername().equals(username)){
-                return false;
-            }
-        }
-        return true;
+        return players.stream().noneMatch(player -> player.getUsername().equals(username));
     }
 
 

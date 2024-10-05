@@ -25,14 +25,12 @@ public class YambApp extends Application {
     //CLIENT VIEW
 
     private Stage primaryStage;
+    private YambPlayer player;
     public FirstPageController FPController;
     public GameController gameController;
     public LobbyController lobbyController;
-    public LoginController loginController;
+    public LoginController loginController = new LoginController();
 
-    private YambServer server;
-
-    private YambPlayer player;
 
     public static void main(String[] args) {
         launch(args);
@@ -43,9 +41,15 @@ public class YambApp extends Application {
         primaryStage = stage;
 
         player = new YambPlayer(this);
+        player.start();
+
+        loginController.setPlayer(player);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginView.fxml"));
         Parent root = loader.load();
+
+        loginController = loader.getController();
+        loginController.setPlayer(player);
 
         primaryStage.setTitle("YAMB");
         primaryStage.setScene(new Scene(root));

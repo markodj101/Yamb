@@ -20,7 +20,7 @@ public class FirstPageController {
     private Button createGameBtn;
 
     @FXML
-    private ListView<?> listView;
+    private ListView<String> listView;
 
     @FXML
     private Label nameLabel;
@@ -115,6 +115,10 @@ public class FirstPageController {
 
     public Label getNameLabel() {
         return nameLabel;
+    }
+
+    public ListView<String> getListView() {
+        return listView;
     }
 }
 

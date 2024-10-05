@@ -36,7 +36,7 @@ public class YambPlayerThread extends Thread{
     }
 
     public String getUsername() {
-        return "";
+        return username;
     }
     public boolean isReady() {
         return ready;
@@ -108,19 +108,27 @@ public class YambPlayerThread extends Thread{
         toUser.println(response);
     }
     public void handlePlayerConnect(String username) {
-        if (!server.usernameAvailable(username))
+        if (!server.usernameAvailable(username)) {
             sendResponse("CONNECT false " + username);
+            System.out.println("Ne valja");
+        }
         else {
+            server.addPlayer(this);
+            System.out.println("Valja");
+            sendResponse("CONNECT true " + username);
+            this.username = username;
             server.addPlayer(this);
             sendResponse("CONNECT true " + username);
 
-            server.SendToAll(this, username + " joined server!");
-            sendResponse("ADD USER " + server.ConnectedPlayers(this));
-
-            server.SendToAll(this, "ADD USER " + username);
-            this.username = username;
+//            server.SendToAll(this, username + " joined server!");
+//            sendResponse("ADD USER " + server.ConnectedPlayers(this));
+//
+//            server.SendToAll(this, "ADD USER " + username);
+//            this.username = username;
+            System.out.println(server.players);
         }
     }
+
 
 
     private void handleSetReady(String ready) {
