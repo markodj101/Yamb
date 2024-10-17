@@ -1,6 +1,9 @@
 package client;
 
+import controller.FirstPageController;
 import controller.LobbyController;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import server.Lobby;
 import server.YambServer;
 
@@ -78,30 +81,30 @@ public class YambPlayerThread extends Thread{
             case "CONNECT":
                 handlePlayerConnect(parts[1]);
                 break;
-            case "READY":
-                handleSetReady(parts[1]);
-                break;
-            case "PRIVATE_LOBBY":
-                lobby.setPrivateLobby(parts[1].equals("true"));
-                break;
-            case "INVITE":
-                handlePlayerInvite(parts[1], parts[2], parts[3]);
-                break;
-            case "ACCEPT":
-                handleAcceptInvite(parts[1]);
-                break;
-            case "LEAVE":
-                handleLeaveLobby();
-                break;
-            case "START":
-                handleStartGame();
-                break;
-            case "PLAY":
-                //lobby.getUno().playMove(parts[1]);
-                break;
-            case "DISCONNECT":
-                //handleDisconnect();
-                break;
+//            case "READY":
+//                handleSetReady(parts[1]);
+//                break;
+//            case "PRIVATE_LOBBY":
+//                lobby.setPrivateLobby(parts[1].equals("true"));
+//                break;
+//            case "INVITE":
+//                handlePlayerInvite(parts[1], parts[2], parts[3]);
+//                break;
+//            case "ACCEPT":
+//                handleAcceptInvite(parts[1]);
+//                break;
+//            case "LEAVE":
+//                handleLeaveLobby();
+//                break;
+//            case "START":
+//                handleStartGame();
+//                break;
+//            case "PLAY":
+//                //lobby.getUno().playMove(parts[1]);
+//                break;
+//            case "DISCONNECT":
+//                //handleDisconnect();
+//                break;
         }
     }
     public void sendResponse(String response) {
@@ -110,27 +113,22 @@ public class YambPlayerThread extends Thread{
     public void handlePlayerConnect(String username) {
         if (!server.usernameAvailable(username)) {
             sendResponse("CONNECT false " + username);
-            System.out.println("Ne valja");
         }
         else {
             server.addPlayer(this);
             System.out.println("Valja");
-            sendResponse("CONNECT true " + username);
             this.username = username;
-            server.addPlayer(this);
             sendResponse("CONNECT true " + username);
 
-//            server.SendToAll(this, username + " joined server!");
-//            sendResponse("ADD USER " + server.ConnectedPlayers(this));
-//
-//            server.SendToAll(this, "ADD USER " + username);
-//            this.username = username;
+            server.SendToAll(this, username + " joined server!");
+            sendResponse("ADD USER " + server.ConnectedPlayers(this));
+            System.out.println(server.players);
+            server.SendToAll(this, "ADD USER " + username);
+            this.username = username;
+
             System.out.println(server.players);
         }
     }
-
-
-
     private void handleSetReady(String ready) {
         setReady(ready.equals("true"));
         server.SendToGame(this, lobby, username + " is " + (ready.equals("true") ? "ready!" : "not ready!"));

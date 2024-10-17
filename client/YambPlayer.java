@@ -70,17 +70,11 @@ public class YambPlayer extends Thread{
             case "CONNECT":
                 yambApp.loginController.usernameAvaliable(parts[1], parts[2]);
                 break;
-//            case "ERROR":
-//                ViewUtil.showErrorAlert(parts[2]);
-//                break;
-//            case "ADD":
-//                yambApp.handleAddItems(parts[1], parts[2]);
-//                break;
-//            case "REMOVE":
+            case "ADD":
+                yambApp.loginController.refreshLV();
+                break;
+            //case "REMOVE":
 //                yambApp.handleRemoveItem(parts[1], parts[2]);
-//                break;
-//            case "CREATE_LOBBY":
-//                yambApp.handleCreateLobby(parts[1], parts[2]);
 //                break;
 //            case "JOIN":
 //                yambApp.setLobbyScene(parts[1]);

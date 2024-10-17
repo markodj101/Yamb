@@ -1,6 +1,7 @@
 package controller;
 import client.YambPlayer;
 import client.YambPlayerThread;
+import com.sun.scenario.effect.impl.prism.PrImage;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,18 +10,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import server.YambServer;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Set;
 
 public class LoginController {
 
     @FXML
     private TextField textField;
-
     @FXML
     private Button loginBtn;
     private YambPlayer player;
@@ -47,6 +49,7 @@ public class LoginController {
         });
     }
 
+
     private void switchPage() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FirstPageView.fxml"));
@@ -63,9 +66,16 @@ public class LoginController {
 
             Stage currentStage = (Stage) loginBtn.getScene().getWindow();
             currentStage.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void refreshLV(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FirstPageView.fxml"));
+        FirstPageController controller = loader.getController();
+
     }
 
     @FXML

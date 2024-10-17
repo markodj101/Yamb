@@ -1,4 +1,5 @@
 package controller;
+import client.YambPlayer;
 import client.YambPlayerThread;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +21,7 @@ public class FirstPageController {
     private Button createGameBtn;
 
     @FXML
-    private ListView<String> listView;
+    public ListView<String> listView;
 
     @FXML
     private Label nameLabel;
@@ -31,6 +32,7 @@ public class FirstPageController {
     String url = "/view/FirstPageView.fxml";
     private GameController controller;
     private LobbyController controller2;
+    private YambPlayer player;
 
     @FXML
     void AloneBtnClick(ActionEvent event) {
@@ -103,6 +105,10 @@ public class FirstPageController {
         primaryStage.setTitle("YAMB");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+    }
+
+    public void setPlayer(YambPlayer player){
+        this.player = player;
     }
 
     public Button getCreateGameBtn() {

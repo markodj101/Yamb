@@ -26,7 +26,7 @@ public class YambApp extends Application {
 
     private Stage primaryStage;
     private YambPlayer player;
-    public FirstPageController FPController;
+    public FirstPageController FPController = new FirstPageController();
     public GameController gameController;
     public LobbyController lobbyController;
     public LoginController loginController = new LoginController();

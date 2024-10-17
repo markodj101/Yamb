@@ -2,6 +2,7 @@ package server;
 
 import controller.LobbyController;
 import client.*;
+import javafx.scene.control.ListView;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -14,7 +15,6 @@ import java.util.stream.Collectors;
 public class YambServer {
     public static final int PORT = 8080;
     public final Set<YambPlayerThread> players; //ovo je za sad kao ClientThread
-    private static YambServer instance;
 
     public YambServer() {
         this.players = Collections.synchronizedSet(new HashSet<>());
@@ -42,12 +42,6 @@ public class YambServer {
             System.err.println(e.getMessage()); //msgg
         }
     }
-    public static synchronized YambServer getInstance() {
-        if (instance == null) {
-            instance = new YambServer();
-        }
-        return instance;
-    }
 
     public boolean usernameAvailable(String username) {
         return players.stream().noneMatch(player -> player.getUsername().equals(username));
@@ -55,9 +49,11 @@ public class YambServer {
 
 
 
+
     public void addPlayer(YambPlayerThread player) {
         players.add(player);
     }
+
 
     public void removePlayer(YambPlayerThread player) {
         players.remove(player);
